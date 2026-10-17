@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# VS Code
+.vscode/
+
+# build outputs
+dist/
+build/
+out/
+
+# downloaded installers
+*.deb
+*.rpm
+*.AppImage
+
+# logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editor backups
+*~
+*.swp

@@ -1,0 +1,38 @@
+name: "¿En qué paso te atascaste?"
+description: "Cuéntanos en qué paso de la guía te quedaste para poder ayudarte."
+title: "[Ayuda] Paso ?: "
+labels: ["help wanted", "question"]
+body:
+  - type: input
+    id: paso
+    attributes:
+      label: "¿En qué paso te atascaste? (1 al 5)"
+      description: "Los pasos están en el README: 1 VS Code, 2 Cline, 3 API key, 4 REA, 5 verificación."
+      placeholder: "Ejemplo: Paso 3"
+    validations:
+      required: true
+  - type: textarea
+    id: sintoma
+    attributes:
+      label: "¿Qué ves en pantalla?"
+      description: "Copia el mensaje de error exacto o describe lo que pasa."
+      placeholder: "Pegué mi API key pero Cline dice..."
+    validations:
+      required: true
+  - type: textarea
+    id: sistema
+    attributes:
+      label: "Tu sistema"
+      description: "Completa lo que puedas."
+      value: |
+        - Sistema operativo:
+        - RAM:
+        - Versión de VS Code:
+        - Versión de Cline:
+  - type: checkboxes
+    id: antes
+    attributes:
+      label: "Antes de enviar, confirma"
+      options:
+        - label: "Leí la guía de troubleshooting (docs/troubleshooting.es.md)"
+        - label: "Probé recargar la ventana de VS Code (Ctrl+Shift+P → Reload Window)"

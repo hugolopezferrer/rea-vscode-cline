@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REA + VS Code + Cline — Free setup guide / Guía gratuita</title>
+<style>
+  :root{
+    --bg:#0f172a; --card:#1e293b; --text:#e2e8f0; --muted:#94a3b8;
+    --accent:#38bdf8; --green:#4ade80; --amber:#fbbf24; --red:#f87171;
+    --code-bg:#020617;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65}
+  .wrap{max-width:880px;margin:0 auto;padding:24px 18px 72px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-start;
+    gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  h1{font-size:1.9rem;margin:.2em 0}
+  h2{font-size:1.35rem;margin-top:2.2em;border-bottom:1px solid #334155;padding-bottom:.3em}
+  h3{font-size:1.1rem;margin-top:1.6em}
+  .subtitle{color:var(--muted);margin-top:0}
+  .toggle{display:flex;gap:8px}
+  .toggle button{background:var(--card);color:var(--text);border:1px solid #475569;
+    border-radius:8px;padding:8px 14px;font-size:1rem;cursor:pointer}
+  .toggle button.active{background:var(--accent);color:#082f49;border-color:var(--accent);
+    font-weight:700}
+  .badges{margin:12px 0 4px}
+  .badges img{margin-right:6px;margin-bottom:6px}
+  .es{display:none}
+  pre{background:var(--code-bg);border:1px solid #1e293b;border-radius:10px;
+    padding:14px 16px;overflow-x:auto}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em}
+  p code, li code, td code{background:var(--code-bg);padding:2px 6px;border-radius:6px}
+  pre code{background:none;padding:0}
+  .step{background:var(--card);border-radius:12px;padding:18px 20px;margin:18px 0}
+  .step h3{margin-top:0;color:var(--accent)}
+  .see{color:var(--green)}
+  .callout{border-left:4px solid;padding:12px 16px;border-radius:0 10px 10px 0;margin:18px 0}
+  .callout.important{border-color:var(--amber);background:rgba(251,191,36,.08)}
+  .callout.warning{border-color:var(--red);background:rgba(248,113,113,.08)}
+  .callout.note{border-color:var(--accent);background:rgba(56,189,248,.08)}
+  .callout strong{display:block;margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.95rem}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #334155;vertical-align:top}
+  th{color:var(--muted);font-weight:600}
+  ul{padding-left:1.3em}
+  li{margin-bottom:.4em}
+  a{color:var(--accent)}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid #334155;
+    color:var(--muted);font-size:.9rem}
+  ol.steps{list-style:none;padding:0;counter-reset:step}
+  ol.steps>li{counter-increment:step}
+  @media (max-width:600px){
+    h1{font-size:1.5rem}
+    .wrap{padding:16px 12px 56px}
+    table{font-size:.85rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>REA + VS Code + Cline</h1>
+    <p class="subtitle">
+      <span class="en">A free reverse-engineering assistant for low-resource computers. No credit card. Free software spirit.</span>
+      <span class="es">Un asistente gratuito de ingeniería inversa para computadoras de bajos recursos. Sin tarjeta. Espíritu de software libre.</span>
+    </p>
+  </div>
+  <div class="toggle">
+    <button data-lang="en" class="active" onclick="setLang('en')">🇺🇸 EN</button>
+    <button data-lang="es" onclick="setLang('es')">🇪🇸 ES</button>
+  </div>
+</header>
+
+<div class="badges">
+  <img src="https://img.shields.io/badge/100%25_free-brightgreen" alt="100% free">
+  <img src="https://img.shields.io/badge/no_credit_card-blue" alt="no credit card">
+  <img src="https://img.shields.io/badge/open_source-orange" alt="open source">
+  <img src="https://img.shields.io/badge/4_GB_RAM-friendly-yellowgreen" alt="4 GB RAM friendly">
+</div>
+
+<h2><span class="en">What this is</span><span class="es">Qué es esto</span></h2>
+<p>
+  <span class="en">A step-by-step guide to install <strong>REA</strong> — an MCP server with <strong>207 reverse-engineering tools</strong> — inside <strong>VS Code</strong> with the <strong>Cline</strong> agent, powered by Google's <strong>free</strong> Gemini API. Tested on a real low-end laptop: Debian 13, 4 GB RAM.</span>
+  <span class="es">Una guía paso a paso para instalar <strong>REA</strong> — un servidor MCP con <strong>207 herramientas de ingeniería inversa</strong> — dentro de <strong>VS Code</strong> con el agente <strong>Cline</strong>, usando la API <strong>gratuita</strong> de Gemini de Google. Probado en una laptop modesta de verdad: Debian 13, 4 GB de RAM.</span>
+</p>
+<p>
+  <span class="en"><strong>One rule that saves you an hour:</strong> always use a <strong>Flash</strong> model, never a Pro model. The free API key does not allow Pro models.</span>
+  <span class="es"><strong>Una regla que te ahorrará una hora:</strong> usa siempre un modelo <strong>Flash</strong>, nunca un modelo Pro. La API key gratuita no permite modelos Pro.</span>
+</p>
+
+<h2><span class="en">What you need</span><span class="es">Qué necesitas</span></h2>
+<ul>
+  <li><span class="en">Debian/Ubuntu-based Linux (tested on Debian 13)</span><span class="es">Linux basado en Debian/Ubuntu (probado en Debian 13)</span></li>
+  <li><span class="en">4 GB of RAM</span><span class="es">4 GB de RAM</span></li>
+  <li><span class="en">Internet connection</span><span class="es">Conexión a internet</span></li>
+  <li><span class="en">A Google account (only to get the free API key — no card asked)</span><span class="es">Una cuenta de Google (solo para la API key gratuita — nunca piden tarjeta)</span></li>
+</ul>
+
+<h2><span class="en">Steps</span><span class="es">Pasos</span></h2>
+
+<div class="step">
+  <h3><span class="en">1 — Install VS Code</span><span class="es">1 — Instalar VS Code</span></h3>
+  <p><span class="en">Run in a terminal:</span><span class="es">Ejecuta en una terminal:</span></p>
+<pre><code>wget -O /tmp/vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" &amp;&amp; sudo dpkg -i /tmp/vscode.deb; sudo apt-get install -f -y</code></pre>
+  <p class="see"><span class="en">You should see: lines ending with <code>Setting up code (1.142.0...)</code>, and <code>which code</code> prints <code>/usr/bin/code</code>.</span><span class="es">Deberías ver: líneas que terminan en <code>Setting up code (1.142.0...)</code>, y <code>which code</code> imprime <code>/usr/bin/code</code>.</span></p>
+  <p><span class="en">Then delete the 229 MB installer you no longer need:</span><span class="es">Luego borra el instalador de 229 MB que ya no necesitas:</span></p>
+<pre><code>rm -f /tmp/vscode.deb</code></pre>
+</div>
+
+<div class="step">
+  <h3><span class="en">2 — Install Cline</span><span class="es">2 — Instalar Cline</span></h3>
+<pre><code>code --install-extension saoudrizwan.claude-dev</code></pre>
+  <p class="see"><span class="en">You should see: <code>Extension 'saoudrizwan.claude-dev' v4.1.25 was successfully installed.</code></span><span class="es">Deberías ver: <code>Extension 'saoudrizwan.claude-dev' v4.1.25 was successfully installed.</code></span></p>
+</div>
+
+<div class="step">
+  <h3><span class="en">3 — Connect your free Gemini key</span><span class="es">3 — Conectar tu key gratuita de Gemini</span></h3>
+  <ol>
+    <li><span class="en">In VS Code, click the <strong>Cline</strong> icon in the left sidebar, then the <strong>gear</strong> (settings).</span><span class="es">En VS Code, haz clic en el icono de <strong>Cline</strong> en la barra lateral, luego en el <strong>engranaje</strong> (ajustes).</span></li>
+    <li><span class="en">Set <strong>API Provider</strong> to <code>Google Gemini</code>.</span><span class="es">Pon <strong>API Provider</strong> en <code>Google Gemini</code>.</span></li>
+    <li><span class="en">Get your free key at <a href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> and paste it.</span><span class="es">Obtén tu key gratuita en <a href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> y pégala.</span></li>
+    <li><span class="en">Set <strong>Model</strong> to <code>gemini-2.5-flash</code>.</span><span class="es">Pon <strong>Model</strong> en <code>gemini-2.5-flash</code>.</span></li>
+  </ol>
+  <p class="see"><span class="en">You should see: <code>gemini:gemini-2.5-flash</code> at the bottom of the Cline panel.</span><span class="es">Deberías ver: <code>gemini:gemini-2.5-flash</code> abajo del panel de Cline.</span></p>
+</div>
+
+<div class="callout important">
+  <strong><span class="en">IMPORTANT — Flash, not Pro</span><span class="es">IMPORTANTE — Flash, no Pro</span></strong>
+  <span class="en">Picking a Pro model makes every request fail with <code>400 INVALID_ARGUMENT</code>. The free key only allows Flash models.</span>
+  <span class="es">Elegir un modelo Pro hace que cada petición falle con <code>400 INVALID_ARGUMENT</code>. La key gratuita solo permite modelos Flash.</span>
+</div>
+
+<div class="step">
+  <h3><span class="en">4 — Plug in REA (the 207 tools)</span><span class="es">4 — Enchufar REA (las 207 herramientas)</span></h3>
+  <p><span class="en">Cline 4.x reads MCP servers from exactly this file:</span><span class="es">Cline 4.x lee los servidores MCP de exactamente este archivo:</span></p>
+  <p><code>~/.cline/data/settings/cline_mcp_settings.json</code></p>
+<pre><code>cat &gt; ~/.cline/data/settings/cline_mcp_settings.json &lt;&lt; 'EOF'
+{
+  "mcpServers": {
+    "rea": {
+      "command": "npx",
+      "args": ["-y", "rea-agents@6.5.0", "mcp"],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+EOF</code></pre>
+</div>
+
+<div class="callout warning">
+  <strong><span class="en">WARNING — why not Antigravity</span><span class="es">AVISO — por qué no Antigravity</span></strong>
+  <span class="en">Google Antigravity caps MCP servers at 100 tools; REA exposes 207. That is why this guide uses Cline.</span>
+  <span class="es">Google Antigravity topa los servidores MCP en 100 herramientas; REA expone 207. Por eso esta guía usa Cline.</span>
+</div>
+
+<div class="step">
+  <h3><span class="en">5 — Reload and verify</span><span class="es">5 — Recargar y verificar</span></h3>
+  <ol>
+    <li><span class="en">Press <code>Ctrl+Shift+P</code>, type <code>Reload Window</code>, press Enter.</span><span class="es">Pulsa <code>Ctrl+Shift+P</code>, escribe <code>Reload Window</code>, pulsa Enter.</span></li>
+    <li><span class="en">In the Cline panel, click the <strong>MCP servers</strong> icon.</span><span class="es">En el panel de Cline, haz clic en el icono de <strong>servidores MCP</strong>.</span></li>
+    <li><span class="en"><strong>rea</strong> appears with a green dot. Click it to expand: <strong>Tools (207)</strong>.</span><span class="es"><strong>rea</strong> aparece con un punto verde. Haz clic para expandirlo: <strong>Tools (207)</strong>.</span></li>
+  </ol>
+</div>
+
+<div class="callout note">
+  <strong><span class="en">NOTE — RAM</span><span class="es">NOTA — RAM</span></strong>
+  <span class="en">With 4 GB of RAM, close your browser while using VS Code + Cline. One heavy app at a time.</span>
+  <span class="es">Con 4 GB de RAM, cierra tu navegador mientras usas VS Code + Cline. Una app pesada a la vez.</span>
+</div>
+
+<h2><span class="en">Model guide</span><span class="es">Guía de modelos</span></h2>
+<table>
+  <tr>
+    <th><span class="en">Model</span><span class="es">Modelo</span></th>
+    <th><span class="en">Real cost with the free key</span><span class="es">Costo real con la key gratuita</span></th>
+    <th><span class="en">Note</span><span class="es">Nota</span></th>
+  </tr>
+  <tr>
+    <td><code>gemini-2.5-flash</code></td>
+    <td>$0</td>
+    <td><span class="en">Recommended. Fast, generous free tier.</span><span class="es">Recomendado. Rápido, tier gratuito generoso.</span></td>
+  </tr>
+  <tr>
+    <td><code>gemini-2.0-flash</code></td>
+    <td>$0</td>
+    <td><span class="en">Older Flash; fine as a fallback.</span><span class="es">Flash más viejo; sirve como respaldo.</span></td>
+  </tr>
+  <tr>
+    <td><code>*-pro</code></td>
+    <td><span class="en">Not allowed</span><span class="es">No permitido</span></td>
+    <td><span class="en">The free key rejects Pro models.</span><span class="es">La key gratuita rechaza los modelos Pro.</span></td>
+  </tr>
+</table>
+<p><span class="en">Prices like <code>$0.30/M</code> shown in Cline are for reference only — with no billing account, you can never be charged.</span><span class="es">Precios como <code>$0.30/M</code> en Cline son solo referenciales — sin cuenta de facturación, nunca te pueden cobrar.</span></p>
+
+<h2><span class="en">Stuck?</span><span class="es">¿Atascado?</span></h2>
+<p>
+  <span class="en">Read the troubleshooting table: <a href="troubleshooting.en.md">troubleshooting.en.md</a> — symptom, cause, fix.</span>
+  <span class="es">Lee la tabla de troubleshooting: <a href="troubleshooting.es.md">troubleshooting.es.md</a> — síntoma, causa, solución.</span>
+</p>
+
+<footer>
+  <span class="en">Repository: <code>rea-vscode-cline</code> · Shared under <a href="../LICENSE">CC BY 4.0</a> — free to use, copy, translate, and adapt with credit. Full guides: <a href="../README.md">English</a> · <a href="../README.es.md">Español</a>.</span>
+  <span class="es">Repositorio: <code>rea-vscode-cline</code> · Compartido bajo <a href="../LICENSE">CC BY 4.0</a> — libre de usar, copiar, traducir y adaptar con crédito. Guías completas: <a href="../README.md">English</a> · <a href="../README.es.md">Español</a>.</span>
+</footer>
+
+</div>
+
+<script>
+function setLang(l){
+  document.querySelectorAll('.en').forEach(function(e){ e.style.display = (l === 'en') ? 'inline' : 'none'; });
+  document.querySelectorAll('.es').forEach(function(e){ e.style.display = (l === 'es') ? 'inline' : 'none'; });
+  document.documentElement.lang = l;
+  document.querySelectorAll('.toggle button').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-lang') === l);
+  });
+}
+</script>
+</body>
+</html>
